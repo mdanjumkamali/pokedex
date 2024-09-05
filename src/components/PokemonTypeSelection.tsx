@@ -9,22 +9,32 @@ import {
   MenuItem,
   Button,
   Box,
+  SelectChangeEvent,
 } from "@mui/material";
 
-const PokemonTypeSelection = () => {
-  const [selectedType, setSelectedType] = React.useState<string | "">("");
+interface PokemonTypeSelectionProps {
+  onChange: (type: string) => void;
+}
+
+const PokemonTypeSelection: React.FC<PokemonTypeSelectionProps> = ({
+  onChange,
+}) => {
+  const [selectedType, setSelectedType] = React.useState<string>("");
 
   const { data: types, isLoading } = trpc.getAllTypes.useQuery();
 
-  const handleChange = (event: SelectChangeEvent<string | "">) => {
-    setSelectedType(event.target.value);
-    console.log(selectedType);
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const newType = event.target.value;
+    setSelectedType(newType);
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  const handleApply = () => {
+    onChange(selectedType);
+  };
 
   const handleReset = () => {
     setSelectedType("");
+    onChange("");
   };
 
   return (
@@ -32,7 +42,7 @@ const PokemonTypeSelection = () => {
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <FormControl
-        variant="outlined" // Use 'outlined' to match the style in the screenshot
+        variant="outlined"
         sx={{
           m: 1,
           minWidth: 300,
@@ -77,14 +87,15 @@ const PokemonTypeSelection = () => {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#FFD700", // Gold color
-            color: "#000", // Black text
+            backgroundColor: "#FFD700",
+            color: "#000",
             textTransform: "none",
             "&:hover": {
               backgroundColor: "#FFC107",
             },
             width: "100px",
           }}
+          onClick={handleApply}
         >
           Apply
         </Button>

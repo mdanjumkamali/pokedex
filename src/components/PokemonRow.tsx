@@ -1,22 +1,59 @@
-"use client";
 import React from "react";
-import { trpc } from "@/app/_trpc/client";
-import PokemonCard from "./Card";
+import { Card, CardContent, CardMedia, Typography, Chip } from "@mui/material";
 
-const PokemonRow = () => {
-  const { data, isLoading, error } = trpc.getPokemon.useQuery("Butterfree");
+interface prop {
+  id: number;
+  name: string;
+  sprite: string;
+  type: string[];
+}
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+const PokemonRow: React.FC<prop> = ({ id, name, sprite, type }) => {
+  const getTypeColr = (type: string) => {
+    switch (type) {
+      case "water":
+        return "blue";
+      case "grass":
+        return "green";
+      case "bug":
+        return "#008000";
+      case "flying":
+        return "#3dc7ef";
+      case "fire":
+        return "#fd7d24";
+      case "poison":
+        return "#b97fc9";
 
-  const name = data?.name || "";
-  const sprite = data?.sprite || "";
-  const type = data?.types || [];
-
+      default:
+        return "grey";
+    }
+  };
   return (
-    <div className="p-16">
-      <PokemonCard id={data.id} name={name} sprite={sprite} type={type} />
-    </div>
+    <Card sx={{ maxWidth: 220 }}>
+      <CardMedia component="img" height="40" image={sprite} alt={name} />
+      <CardContent>
+        <Typography variant="h6" component="div">
+          #{id}
+        </Typography>
+        <Typography variant="h6" component="div">
+          {name}
+        </Typography>
+        <div>
+          {type.map((type) => (
+            <Chip
+              key={type}
+              label={type}
+              sx={{
+                margin: "3px",
+                textTransform: "capitalize",
+                backgroundColor: getTypeColr(type),
+                color: "white",
+              }}
+            />
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

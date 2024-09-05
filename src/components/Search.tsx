@@ -8,14 +8,18 @@ import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 
-const Search = () => {
+interface SearchProps {
+  onSearch: (query: string) => void;
+}
+
+const Search: React.FC<SearchProps> = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState();
   const handleInputChange = (e: any) => {
     setSearchQuery(e.target.value);
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(searchQuery);
+    onSearch(searchQuery!);
   };
   return (
     <Box
