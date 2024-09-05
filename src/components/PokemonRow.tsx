@@ -14,8 +14,8 @@ const PokemonRow = () => {
   const type = data?.types || [];
 
   return (
-    <div>
-      <PokemonCard name={name} sprite={sprite} type={type} />
+    <div className="p-16">
+      <PokemonCard id={data.id} name={name} sprite={sprite} type={type} />
     </div>
   );
 };

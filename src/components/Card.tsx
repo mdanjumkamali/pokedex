@@ -2,12 +2,13 @@ import React from "react";
 import { Card, CardContent, CardMedia, Typography, Chip } from "@mui/material";
 
 interface prop {
+  id: number;
   name: string;
   sprite: string;
   type: string[];
 }
 
-const PokemonCard: React.FC<prop> = ({ name, sprite, type }) => {
+const PokemonCard: React.FC<prop> = ({ id, name, sprite, type }) => {
   const getTypeColr = (type: string) => {
     switch (type) {
       case "water":
@@ -28,9 +29,12 @@ const PokemonCard: React.FC<prop> = ({ name, sprite, type }) => {
     }
   };
   return (
-    <Card sx={{ maxWidth: 250, maxHeight: 350 }}>
-      <CardMedia component="img" height="50" image={sprite} alt={name} />
+    <Card sx={{ maxWidth: 220 }}>
+      <CardMedia component="img" height="40" image={sprite} alt={name} />
       <CardContent>
+        <Typography variant="h6" component="div">
+          #{id}
+        </Typography>
         <Typography variant="h6" component="div">
           {name}
         </Typography>

@@ -20,6 +20,19 @@ export const AddPokemonInputSchema = z.object({
 
 // Pokemon Service
 export const pokemonService = {
+  async getAllTypes(): Promise<Pokemon[]> {
+    const types = await prismaClient.type.findMany({
+      select: { name: true },
+      distinct: ["name"],
+    });
+    return types.map((type) => ({
+      id: 0,
+      name: type.name,
+      types: [],
+      sprite: "",
+    }));
+  },
+
   async getPokemon(name: string): Promise<Pokemon> {
     const pokemon = await prismaClient.pokemon.findUnique({
       where: { name },

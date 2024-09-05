@@ -3,6 +3,11 @@ import { z } from "zod";
 import { pokemonService } from "./trpc.service";
 
 export const appRouter = router({
+  // all pokemon
+  getAllTypes: publicProcedure.query(async () => {
+    return await pokemonService.getAllTypes();
+  }),
+
   // single Pokémon
   getPokemon: publicProcedure.input(z.string()).query(async ({ input }) => {
     return await pokemonService.getPokemon(input);
