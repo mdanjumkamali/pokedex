@@ -1,23 +1,11 @@
-import { prismaClient } from "../client";
 import { publicProcedure, router } from "./trpc";
 import { z } from "zod";
+import { pokemonService } from "./trpc.service";
 
 export const appRouter = router({
   // single Pokémon
   getPokemon: publicProcedure.input(z.string()).query(async ({ input }) => {
-    const pokemon = await prismaClient.pokemon.findUnique({
-      where: { name: input },
-      include: { types: true },
-    });
-
-    if (!pokemon) throw new Error("Pokemon not found");
-
-    return {
-      id: pokemon.id,
-      name: pokemon.name,
-      types: pokemon.types.map((type) => type.name),
-      sprite: pokemon.sprite,
-    };
+    return await pokemonService.getPokemon(input);
   }),
 
   // multiple Pokémon
@@ -25,17 +13,7 @@ export const appRouter = router({
   getPokemonArray: publicProcedure
     .input(z.array(z.string()))
     .query(async ({ input }) => {
-      const pokemons = await prismaClient.pokemon.findMany({
-        where: { name: { in: input } },
-        include: { types: true },
-      });
-
-      return pokemons.map((pokemon) => ({
-        id: pokemon.id,
-        name: pokemon.name,
-        types: pokemon.types.map((type) => type.name),
-        sprite: pokemon.sprite,
-      }));
+      return await pokemonService.getPokemonArray(input);
     }),
 
   // Pokémon filtered by type
@@ -43,23 +21,20 @@ export const appRouter = router({
   getPokemonByType: publicProcedure
     .input(z.string())
     .query(async ({ input }) => {
-      const pokemons = await prismaClient.pokemon.findMany({
-        where: {
-          types: {
-            some: {
-              name: input,
-            },
-          },
-        },
-        include: { types: true },
-      });
+      return await pokemonService.getPokemonByType(input);
+    }),
 
-      return pokemons.map((pokemon) => ({
-        id: pokemon.id,
-        name: pokemon.name,
-        types: pokemon.types.map((type) => type.name),
-        sprite: pokemon.sprite,
-      }));
+  // add pokemon
+  addPokemon: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        sprite: z.string(),
+        types: z.array(z.string()),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await pokemonService.addPokemon(input);
     }),
 });
 
