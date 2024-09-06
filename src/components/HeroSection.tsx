@@ -1,6 +1,6 @@
 "use client";
 import PokemonTable from "@/components/PokemonTable";
-import FilterablePokedexTable from "@/components/PokemonTypeSelection";
+import PokemonTypeSelection from "@/components/PokemonTypeSelection";
 import Search from "@/components/Search";
 import { useState } from "react";
 import AllPokemons from "./AllPokemons";
@@ -28,7 +28,7 @@ const HeroSection = () => {
       </div>
       <div className="flex flex-col lg:flex-row gap-4 items-center lg:items-start md:px-20">
         <div>
-          <FilterablePokedexTable onChange={handleType} />
+          <PokemonTypeSelection onChange={handleType} />
         </div>
         <div className="px-6 md:px-0 pb-3">
           {searchQuery.length > 0 || selectedType ? (
