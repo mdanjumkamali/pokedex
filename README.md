@@ -3,8 +3,12 @@
 # Features:
 
 ### Search by name: Users can enter one or more Pokémon names to retrieve their details.
+![name!](https://github.com/mdanjumkamali/images/blob/main/Screenshot%202024-09-06%20at%2010.50.17%E2%80%AFAM.png?raw=true)
+![names!](https://github.com/mdanjumkamali/images/blob/main/Screenshot%202024-09-06%20at%2010.50.55%E2%80%AFAM.png?raw=true)
 
 ### Filter by type: Users can filter Pokémon by their primary type.
+![type!](https://github.com/mdanjumkamali/images/blob/main/Screenshot%202024-09-06%20at%2010.51.15%E2%80%AFAM.png?raw=true)
+![types!](https://github.com/mdanjumkamali/images/blob/main/Screenshot%202024-09-06%20at%2010.51.41%E2%80%AFAM.png?raw=true)
 
 ### Responsive design: The app adapts to different screen sizes and devices.
 
