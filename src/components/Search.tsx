@@ -38,7 +38,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
       onSubmit={handleSubmit}
     >
       <TextField
-        placeholder="Pokemon name or number or type"
+        placeholder="Enter one or more Pokémon names"
         size="small"
         variant="outlined"
         value={searchQuery}
