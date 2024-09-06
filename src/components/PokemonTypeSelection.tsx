@@ -21,7 +21,7 @@ const PokemonTypeSelection: React.FC<PokemonTypeSelectionProps> = ({
 }) => {
   const [selectedType, setSelectedType] = React.useState<string>("");
 
-  const { data: types, isLoading } = trpc.getAllTypes.useQuery();
+  const { data: types } = trpc.getAllTypes.useQuery();
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     const newType = event.target.value;

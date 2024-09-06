@@ -1,23 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
-import SearchIcon from "@mui/icons-material/Search";
+import TextField from "@mui/material/TextField";
+import React, { useState } from "react";
 
 interface SearchProps {
   onSearch: (query: string) => void;
 }
 
 const Search: React.FC<SearchProps> = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState();
-  const handleInputChange = (e: any) => {
+  const [searchQuery, setSearchQuery] = useState<string | undefined>();
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(searchQuery!);
   };

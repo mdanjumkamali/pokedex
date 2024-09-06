@@ -26,8 +26,9 @@ const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
   const pokemonByTypeQuery = trpc.getPokemonByType.useQuery(type || "");
 
   let data;
-  let isLoading = pokemonByNameQuery.isLoading || pokemonByTypeQuery.isLoading;
-  let error = pokemonByNameQuery.error || pokemonByTypeQuery.error;
+  const isLoading =
+    pokemonByNameQuery.isLoading || pokemonByTypeQuery.isLoading;
+  const error = pokemonByNameQuery.error || pokemonByTypeQuery.error;
 
   if (name && name.length > 0) {
     data = pokemonByNameQuery.data;

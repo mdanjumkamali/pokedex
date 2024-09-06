@@ -8,28 +8,7 @@ interface prop {
   type: string[];
 }
 
-import { styled } from "@mui/material/styles";
-
 const PokemonRow: React.FC<prop> = ({ id, name, sprite, type }) => {
-  const getTypeColr = (type: string) => {
-    switch (type) {
-      case "water":
-        return "blue";
-      case "grass":
-        return "green";
-      case "bug":
-        return "#008000";
-      case "flying":
-        return "#3dc7ef";
-      case "fire":
-        return "#fd7d24";
-      case "poison":
-        return "#b97fc9";
-
-      default:
-        return "grey";
-    }
-  };
   return (
     <Card
       sx={{
@@ -73,3 +52,23 @@ const PokemonRow: React.FC<prop> = ({ id, name, sprite, type }) => {
 };
 
 export default PokemonRow;
+
+const getTypeColr = (type: string) => {
+  switch (type) {
+    case "water":
+      return "blue";
+    case "grass":
+      return "green";
+    case "bug":
+      return "#008000";
+    case "flying":
+      return "#3dc7ef";
+    case "fire":
+      return "#fd7d24";
+    case "poison":
+      return "#b97fc9";
+
+    default:
+      return "grey";
+  }
+};
