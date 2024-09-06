@@ -8,6 +8,8 @@ interface prop {
   type: string[];
 }
 
+import { styled } from "@mui/material/styles";
+
 const PokemonRow: React.FC<prop> = ({ id, name, sprite, type }) => {
   const getTypeColr = (type: string) => {
     switch (type) {
@@ -29,7 +31,20 @@ const PokemonRow: React.FC<prop> = ({ id, name, sprite, type }) => {
     }
   };
   return (
-    <Card sx={{ maxWidth: 220 }}>
+    <Card
+      sx={{
+        width: {
+          xs: "100%",
+          lg: "1000px",
+        },
+        maxWidth: "100%",
+        transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+        "&:hover": {
+          transform: "translateY(-5px)",
+          boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+        },
+      }}
+    >
       <CardMedia component="img" height="40" image={sprite} alt={name} />
       <CardContent>
         <Typography variant="h6" component="div">

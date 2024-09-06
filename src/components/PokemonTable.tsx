@@ -51,7 +51,7 @@ const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
   };
 
   return (
-    <>
+    <div>
       <Grid container spacing={2}>
         {paginatedData.map((pokemon: Pokemon) => (
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={pokemon.id}>
@@ -64,6 +64,7 @@ const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
           </Grid>
         ))}
       </Grid>
+
       <Pagination
         count={Math.ceil(data.length / itemsPerPage)}
         page={page}
@@ -72,7 +73,7 @@ const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
         shape="rounded"
         sx={{ mt: 2, display: "flex", justifyContent: "center" }}
       />
-    </>
+    </div>
   );
 };
 
