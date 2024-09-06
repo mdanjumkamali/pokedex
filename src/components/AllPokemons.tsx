@@ -1,39 +1,17 @@
-"use client";
+"use clinet";
 
 import { trpc } from "@/app/_trpc/client";
 import { Grid } from "@mui/material";
-import React, { useState } from "react";
-import PokemonRow from "./PokemonRow";
 import Pagination from "@mui/material/Pagination";
+import PokemonRow from "./PokemonRow";
+import { useState } from "react";
+import { Pokemon } from "./PokemonTable";
 
-interface PokemonTableProps {
-  name?: string[];
-  type?: string;
-}
-
-export interface Pokemon {
-  id: number;
-  name: string;
-  types: string[];
-  sprite: string;
-}
-
-const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
+const AllPokemons = () => {
   const [page, setPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
-  const pokemonByNameQuery = trpc.getPokemonArray.useQuery(name || []);
-  const pokemonByTypeQuery = trpc.getPokemonByType.useQuery(type || "");
-
-  let data;
-  let isLoading = pokemonByNameQuery.isLoading || pokemonByTypeQuery.isLoading;
-  let error = pokemonByNameQuery.error || pokemonByTypeQuery.error;
-
-  if (name && name.length > 0) {
-    data = pokemonByNameQuery.data;
-  } else if (type) {
-    data = pokemonByTypeQuery.data;
-  }
+  const { data, isLoading, error } = trpc.getAllPokemon.useQuery();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -51,7 +29,7 @@ const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
   };
 
   return (
-    <>
+    <div>
       <Grid container spacing={2}>
         {paginatedData.map((pokemon: Pokemon) => (
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={pokemon.id}>
@@ -64,6 +42,7 @@ const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
           </Grid>
         ))}
       </Grid>
+
       <Pagination
         count={Math.ceil(data.length / itemsPerPage)}
         page={page}
@@ -72,8 +51,8 @@ const PokemonTable: React.FC<PokemonTableProps> = ({ name, type }) => {
         shape="rounded"
         sx={{ mt: 2, display: "flex", justifyContent: "center" }}
       />
-    </>
+    </div>
   );
 };
 
-export default PokemonTable;
+export default AllPokemons;

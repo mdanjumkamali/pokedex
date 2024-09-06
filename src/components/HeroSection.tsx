@@ -3,6 +3,7 @@ import PokemonTable from "@/components/PokemonTable";
 import FilterablePokedexTable from "@/components/PokemonTypeSelection";
 import Search from "@/components/Search";
 import { useState } from "react";
+import AllPokemons from "./AllPokemons";
 
 const HeroSection = () => {
   const [searchQuery, setSearchQuery] = useState<string[]>([]);
@@ -24,7 +25,11 @@ const HeroSection = () => {
           <FilterablePokedexTable onChange={handleType} />
         </div>
         <div className="border w-full">
-          <PokemonTable name={searchQuery} type={selectedType!} />
+          {searchQuery.length > 0 || selectedType ? (
+            <PokemonTable name={searchQuery} type={selectedType!} />
+          ) : (
+            <AllPokemons />
+          )}
         </div>
       </div>
     </div>

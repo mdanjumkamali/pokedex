@@ -33,6 +33,13 @@ export const pokemonService = {
     }));
   },
 
+  async getAllPokemon(): Promise<Pokemon[]> {
+    const pokemons = await prismaClient.pokemon.findMany({
+      include: { types: true },
+    });
+    return pokemons.map(this.formatPokemon);
+  },
+
   async getPokemon(name: string): Promise<Pokemon> {
     const pokemon = await prismaClient.pokemon.findUnique({
       where: { name },
