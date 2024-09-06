@@ -1,4 +1,5 @@
 # Pokedex
+![cover]!(https://github.com/mdanjumkamali/images/blob/main/Screenshot%202024-09-06%20at%2010.59.45%E2%80%AFAM.png?raw=true)
 
 # Features:
 
